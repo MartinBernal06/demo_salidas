@@ -1,86 +1,23 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React,  { useState, useEffect } from 'react';
+import {ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import SalidaService from './src/services/SalidasService';
 
 export default function App() {
-  const idas = [{
-    "NumMsj": 0,
-    "TxtMsj": "",
-    "HorSal": "0050",
-    "Autobs": "182  ",
-    "NumCrr": 3467183,
-    "Ocupcn": "00000000000000000000000000000000000000000000000000000000----",
-    "PrcNrm": 333.0,
-    "PrcMed": 200.0,
-    "PrcINS": 167.0,
-    "PrcEst": 274.0,
-    "PrcMst": 274.0,
-    "PrcPro": 0.0,
-    "PrcDis": 267.0,
-    "PrcMsc": 0.0,
-    "CodSrv": "Y",
-    "Plazas": 56,
-    "PsoLoc": "P",
-    "CrrExt": "N",
-    "FchLlg": "20240329",
-    "HorLlg": "0430",
-    "DiaDsp": "0",
-    "DspNrm": 10,
-    "DspMed": 10,
-    "DspINS": 2,
-    "DspEst": 10,
-    "DspMst": 10,
-    "DspPro": 0,
-    "DspDis": 4,
-    "DspMsc": 2,
-    "DirEsc": "ESC",
-    "Escala": 2,
-    "Refley": "333.0000",
-    "PrcPgo": 300.0,
-    "Moneda": "MXN",
-    "Recrrd": "3.40",
-    "Clima": "0         ",
-    "VAPor": 0,
-    "VADescuentos": 0,
-    "VAPrcNrm": 0.0,
-    "etk": false,
-    "DoubleDeck": true,
-    "servicio": "MEGAPLUS",
-    "RolCve": "MGP",
-    "PrcNrm2": 394.0,
-    "PrcMed2": 296.0,
-    "PrcINS2": 0.0,
-    "PrcEst2": 0.0,
-    "PrcMst2": 0.0,
-    "PrcPro2": 0.0,
-    "PrcDis2": 0.0,
-    "PrcMsc2": 0.0,
-    "DspNrm2": 10,
-    "DspMed2": 10,
-    "DspINS2": 2,
-    "DspEst2": 10,
-    "DspMst2": 10,
-    "DspPro2": 0,
-    "DspDis2": 10,
-    "DspMsc2": 2,
-    "subesc": null,
-    "origenGPS": {
-      "lat": "27.482528      ",
-      "lng": "-109.946657    "
-    },
-    "destinoGPS": {
-      "lat": "29.077438      ",
-      "lng": "-110.930008    "
-    },
-    "Conexion": false,
-    "ConexionCodCiudad": "-  ",
-    "ConexionCiudad": "-",
-    "ConexionTiempo": "-",
-    "Conexionnumcrr": 0,
-    "Conexioncodsrv": "-  ",
-    "Conexionfchrll": "-            ",
-    "ConexionID": 0,
-    "lleno": false
-  }]; // Define tus datos de ida aquí
+
+  const [idas, setIdas] = useState([]);
+
+  useEffect(() => {
+    const obtenerDatos = async () => {
+      try {
+        const data = await SalidaService.obtenerSalidas();
+        setIdas(data);
+      } catch (error) {
+        // Manejar el error
+      }
+    };
+
+    obtenerDatos();
+  }, []);
 
   let viaje = {
     diaIda: '',
@@ -161,12 +98,13 @@ export default function App() {
   };
 
   return (
-    <View>
+    <ScrollView style={styles.container}>
       {idas.length === 0 && (
         <View>
           <Text style={styles.sinResultados}>Sin Resultados</Text>
         </View>
       )}
+
       {idas.map((ida, index) => (
         <View style={[styles.salidas2]}>
 
@@ -239,7 +177,7 @@ export default function App() {
           )}
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 

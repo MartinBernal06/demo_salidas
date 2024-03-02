@@ -8,7 +8,7 @@ export default function App() {
   return (
     <NativeRouter>
       <View style={{ flex: 1 }}>
-        <Header />
+        {/* <Header /> */}
         <BottomTabs />
       </View>
     </NativeRouter>

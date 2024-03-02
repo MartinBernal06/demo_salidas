@@ -3,20 +3,23 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 //components
 import Home from './Home.jsx'
 import Index from './Index.jsx'
 import Salidas from './Salidas.jsx'
+import CustomDrawerContent from './Header-App.jsx'
 
 const Tab = createBottomTabNavigator();
 const HomeStackNavigatior = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function MyStack() {
   return (
     <HomeStackNavigatior.Navigator
       initialRouteName='Home'
-      >
+    >
       <HomeStackNavigatior.Screen
         name='Home'
         component={Salidas}
@@ -90,10 +93,22 @@ function MyTabs() {
   );
 }
 
+const DrawerNavigator = () => {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        header: props => <CustomDrawerContent {...props} />, // Utiliza CustomDrawerContent como el encabezado
+      }}
+    >
+      <Drawer.Screen name="Main" component={MyTabs} />
+    </Drawer.Navigator>
+  );
+}
+
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <MyTabs />
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }

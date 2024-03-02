@@ -1,8 +1,16 @@
-import React,  { useState, useEffect } from 'react';
-import {ScrollView, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import SalidaService from '../services/SalidasService'
+import { useFonts } from 'expo-font';
 
 const Salidas = () => {
+    const [fontsLoaded] = useFonts({
+        'Termina-Regular': require('../assets/fonts/Termina-Regular.otf'),
+        'Termina-Heavy': require('../assets/fonts/Termina-Heavy.otf'),
+        'Termina-Bold': require('../assets/fonts/Termina-Bold.otf'),
+        'Neue-Unica': require('../assets/fonts/NeueHaasUnicaW1G-Regular.otf')
+    });
+
     const [idas, setIdas] = useState([]);
 
     useEffect(() => {
@@ -107,13 +115,21 @@ const Salidas = () => {
             {idas.map((ida, index) => (
                 <View style={[styles.salidas2]} key={ida.NumCrr}>
 
-                    <View style={[styles.seccionB]}>
+                    <View style={[styles.seccionB, { fontFamily: 'Termina-Regular' }]}>
                         {/* CAMION */}
-                        <View style={styles.Item}>
-                            <Text style={{ fontWeight: '700', color: definirServicio(ida.servicio, ida.RolCve) }}>{ida.servicio}</Text>
-                            <View style={[styles.circle,
-                            (ida.servicio === 'PLATINUM' || ida.servicio === 'PLATINUM ' || ida.servicio === 'TITANIUM ' || ida.servicio === 'TITANIUM' || (ida.RolCve === 'CAZ' && ida.servicio === 'COSTA AZUL') || (ida.servicio === 'PLATINUM INTERNACIONAL' || ida.servicio === 'PLUS INTERNACIONAL' || ida.servicio === 'PLATINUM INTL. ' || ida.servicio === 'PLUS INTL. ') || ida.servicio === 'SPRINTER' || ida.servicio === 'PLUS' || ida.servicio === 'MEGAPLUS') && { backgroundColor: 'red' }]}></View>
-                            <Text style={[styles.infoBoleto3, { color: definirServicio(ida.servicio, ida.RolCve) }]}>{ida.DoubleDeck && 'DOBLE PISO'}</Text>
+                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                            <Text style={{ fontWeight: '700', color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }}>{ida.servicio}</Text>
+                            <View style={[styles.circle]}>
+                                <Image source={ida.servicio === 'PLATINUM' || ida.servicio === 'PLATINUM ' ? require("../assets/iconos/IconosServicios/PLATINUM.png") : 
+                                    ida.servicio === 'TITANIUM ' || ida.servicio === 'TITANIUM' ? require("../assets/iconos/IconosServicios/TITANIUM.png") :
+                                        ida.RolCve === 'CAZ' && ida.servicio === 'COSTA AZUL' ? require("../assets/images/bus_costa_azul.png") :
+                                            ida.servicio === 'PLATINUM INTERNACIONAL' || ida.servicio === 'PLUS INTERNACIONAL' || ida.servicio === 'PLATINUM INTL. ' || ida.servicio === 'PLUS INTL. ' ? require("../assets/iconos/IconosServicios/INTERNACIONAL.png") :
+                                                ida.servicio === 'SPRINTER' ? require("../assets/images/bus_costa_azul.png") :
+                                                    ida.servicio === 'PLUS' || ida.servicio === 'MEGAPLUS' ? require("../assets/iconos/IconosServicios/PLUS.png") : ''
+                                } style={[styles.circle]}>
+                                </Image>
+                            </View>
+                            <Text style={[styles.infoBoleto3, { color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }]}>{ida.DoubleDeck && 'DOBLE PISO'}</Text>
                         </View>
 
                         <View style={styles.Item}>
@@ -161,7 +177,7 @@ const Salidas = () => {
                         </View>
 
                         <View style={styles.Item}>
-                            <TouchableOpacity style={[styles.btnCircle, !getSo() && styles.btnIos, ida.RolCve != 'CAZ' ? null : styles['btnCircle-caz']]} onPress={() => validaSiguiente(ida)}>
+                            <TouchableOpacity style={[styles.btnCircle]} onPress={() => validaSiguiente(ida)}>
                                 <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/flecha-derecha.png' }} style={{ width: '100%', height: '100%' }} />
                             </TouchableOpacity>
                         </View>
@@ -182,18 +198,22 @@ const Salidas = () => {
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%'
+        width: '60%',
+        margin: 'auto',
+        fontFamily: 'Termina-Regular'
     },
     sinResultados: {
         textAlign: 'center',
         padding: 15,
-        fontSize: 24
+        fontSize: 24,
+        fontFamily: 'Termina-Regular'
     },
     salidas2: {
         borderTopWidth: 1,
         borderTopColor: 'rgba(128, 128, 130, 0.3)',
         padding: 10,
         position: 'relative',
+        fontFamily: 'Termina-Regular'
     },
     titlePasos: {
         color: '#f05a28',
@@ -220,7 +240,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     hora: {
-        fontFamily: 'nehue-unica',
+        fontFamily: 'Neue-Unica',
         fontWeight: 'bold',
         fontSize: 28,
         marginBottom: 0,
@@ -237,14 +257,14 @@ const styles = StyleSheet.create({
     },
     precio: {
         fontSize: 18,
-        fontFamily: 'nehue-unica',
+        fontFamily: 'Neue-Unica',
         fontWeight: 'bold',
         color: '#f05a28',
         margin: 0,
     },
     precioCaz: {
         fontSize: 18,
-        fontFamily: 'nehue-unica',
+        fontFamily: 'Neue-Unica',
         fontWeight: 'bold',
         color: '#003c71',
         margin: 0,
@@ -260,19 +280,28 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
+        padding: '8px',
     },
-    btnCircleCaz: {
-        cursor: 'pointer',
-        height: 40,
-        width: 40,
-        borderRadius: 20,
-        backgroundColor: '#003c71',
-        color: 'white',
-        borderWidth: 0,
+    seccionB: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(6, 1fr)',
+        gridTemplateRows: '1fr 0.75fr',
+        gridGap: 5,
+        fontFamily: 'Termina-Regular'
+    },
+    Item: {
+        textAlign: 'center',
         alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
+    circle:{
+        height: '50px',
+        width: '50px',
+        display: 'block',
+        borderRadius: '50%',
+        marginBottom: '10px',
+        backgroundSize: 'cover',
+        margin: 'auto',
+    }
 });
 
 export default Salidas

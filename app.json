@@ -25,6 +25,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["../assets/fonts/Termina-Regular.otf", "../assets/fonts/NeueHaasUnicaW1G-Regular.otf", "../assets/fonts/Termina-Heavy.otf", "../assets/fonts/Termina-Bold.otf"]
+        }
+      ]
+    ]
   }
 }

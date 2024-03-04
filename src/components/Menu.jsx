@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { StyleSheet } from 'react-native';
 
 // Importar componentes
 import Horarios from './Horarios.jsx';
@@ -9,8 +10,8 @@ import MisViajes from './Mis-Viajes.jsx';
 import Index from './Index.jsx';
 import Salidas from './Salidas.jsx';
 import BottomNav from './Bottom-Nav.jsx';
-import CustomDrawerContent from './Header-App.jsx';
-
+import CustomDrawerHeader from './Header-App.jsx';
+import CustomDrawerContent from './Drawer-Nav.jsx';
 // const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -18,11 +19,9 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
-        header: props => <CustomDrawerContent {...props} />,
+        header: props => <CustomDrawerHeader {...props} />,
       }}
-      drawerStyle={{
-        backgroundColor: '#F05A28', // Color de fondo del cajón
-      }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Comprar Boletos" component={Salidas} />
       <Drawer.Screen name="Consulta Horarios" component={Horarios} />

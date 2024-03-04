@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'; // Asegúrate de im
 import { useNavigation } from '@react-navigation/native';
 
 function ButtonNav() {
-  const [selectedTab, setSelectedTab] = useState("Comprar");
+  const [selectedTab, setSelectedTab] = useState("Comprar Boletos");
   const navigation = useNavigation();
   // Utiliza useState para manejar el componente de pantalla actual
 
@@ -17,8 +17,8 @@ function ButtonNav() {
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => handleNavigate("Comprar Boletos")} style={styles.button}>
-          <MaterialCommunityIcons name="ticket-confirmation-outline" color={selectedTab === "Comprar" ? "#F05A28" : "#848484"} size={30} />
-          <Text style={[styles.label, { color: selectedTab === "Comprar" ? "#F05A28" : "#848484" }]}>Comprar</Text>
+          <MaterialCommunityIcons name="ticket-confirmation-outline" color={selectedTab === "Comprar Boletos" ? "#F05A28" : "#848484"} size={30} />
+          <Text style={[styles.label, { color: selectedTab === "Comprar Boletos" ? "#F05A28" : "#848484" }]}>Comprar</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigate("Horarios")} style={styles.button}>
           <MaterialCommunityIcons name="calendar" color={selectedTab === "Horarios" ? "#F05A28" : "#848484"} size={30} />
@@ -29,8 +29,8 @@ function ButtonNav() {
           <Text style={[styles.label, { color: selectedTab === "Mis Viajes" ? "#F05A28" : "#848484" }]}>Mis Viajes</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigate("Mi Cuenta")} style={styles.button}>
-          <MaterialCommunityIcons name="account" color={selectedTab === "Cuenta" ? "#F05A28" : "#848484"} size={30} />
-          <Text style={[styles.label, { color: selectedTab === "Cuenta" ? "#F05A28" : "#848484" }]}>Cuenta</Text>
+          <MaterialCommunityIcons name="account" color={selectedTab === "Mi Cuenta" ? "#F05A28" : "#848484"} size={30} />
+          <Text style={[styles.label, { color: selectedTab === "Mi Cuenta" ? "#F05A28" : "#848484" }]}>Cuenta</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#fff', // Cambia el color de fondo según tu diseño
     elevation: 8, // Para darle una sombra
+    zIndex: 9998,
   },
   buttonContainer: {
     flexDirection: 'row',

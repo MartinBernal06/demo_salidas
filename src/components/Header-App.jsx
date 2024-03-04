@@ -4,7 +4,7 @@ import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-const CustomDrawerContent = (props) => {
+const CustomDrawerHeader = (props) => {
     const navigation = useNavigation();
 
     const handleDrawerOpen = () => {
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CustomDrawerContent;
+export default CustomDrawerHeader;

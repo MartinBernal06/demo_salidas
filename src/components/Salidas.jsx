@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import SalidaService from '../services/SalidasService'
 import { useFonts } from 'expo-font';
-
+import ResumenSup from './Resumen-Superior'
 const Salidas = () => {
     const [fontsLoaded] = useFonts({
         'Termina-Regular': require('../assets/fonts/Termina-Regular.otf'),
@@ -105,102 +105,104 @@ const Salidas = () => {
     };
 
     return (
-        <ScrollView style={styles.container}>
-            {idas.length === 0 && (
-                <View>
-                    <Text style={styles.sinResultados}>Sin Resultados</Text>
-                </View>
-            )}
-
-            {idas.map((ida, index) => (
-                <View style={[styles.salidas2]} key={ida.NumCrr}>
-
-                    <View style={[styles.seccionB, { fontFamily: 'Termina-Regular' }]}>
-                        {/* CAMION */}
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <Text style={{ fontWeight: '700', color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }}>{ida.servicio}</Text>
-                            <View style={[styles.circle]}>
-                                <Image source={ida.servicio === 'PLATINUM' || ida.servicio === 'PLATINUM ' ? require("../assets/iconos/IconosServicios/PLATINUM.png") : 
-                                    ida.servicio === 'TITANIUM ' || ida.servicio === 'TITANIUM' ? require("../assets/iconos/IconosServicios/TITANIUM.png") :
-                                        ida.RolCve === 'CAZ' && ida.servicio === 'COSTA AZUL' ? require("../assets/images/bus_costa_azul.png") :
-                                            ida.servicio === 'PLATINUM INTERNACIONAL' || ida.servicio === 'PLUS INTERNACIONAL' || ida.servicio === 'PLATINUM INTL. ' || ida.servicio === 'PLUS INTL. ' ? require("../assets/iconos/IconosServicios/INTERNACIONAL.png") :
-                                                ida.servicio === 'SPRINTER' ? require("../assets/images/bus_costa_azul.png") :
-                                                    ida.servicio === 'PLUS' || ida.servicio === 'MEGAPLUS' ? require("../assets/iconos/IconosServicios/PLUS.png") : ''
-                                } style={[styles.circle]}>
-                                </Image>
-                            </View>
-                            <Text style={[styles.infoBoleto3, { color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }]}>{ida.DoubleDeck && 'DOBLE PISO'}</Text>
-                        </View>
-
-                        <View style={styles.Item}>
-                            <Text style={styles.infoBoleto}>{viaje.diaIda} {viaje.mesNombreIda}</Text>
-                            <Text style={styles.hora}>{getTimeInOrder(ida.HorSal)}</Text>
-                        </View>
-
-                        <View style={[styles.Item, ida.RolCve != 'CAZ' ? styles.line : styles['line-caz']]}>
-                            {ida.PrcMsc > 0 && <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/petIcon.png' }} style={styles.iconoPett} />}
-                            {ida.Conexion && <View style={styles.conexion}><text>1</text></View>}
-                        </View>
-
-                        <View style={styles.Item}>
-                            <Text style={styles.infoBoleto}>{ida.diaLlegada} {ida.mesNombreLlegada}</Text>
-                            <Text style={styles.hora}>{getTimeInOrder(ida.HorLlg)}</Text>
-                        </View>
-
-                        <View style={styles.Item}>
-                            <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/reloj.png' }} style={styles.ico} />{calcularDiferenciaHoras2(viaje.fchida, ida.HorSal, ida.FchLlg, ida.HorLlg)}</Text>
-                        </View>
-
-                        <View style={styles.Item}>
-                            <Text style={[ida.RolCve != 'CAZ' ? styles.infoBoleto : styles['infoBoleto2']]}>Escalas: {ida.DirEsc}</Text>
-                        </View>
-
-                        <View style={styles.Item}>
-                            <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/autobusgris0.png' }} style={styles.ico} />{ida.PsoLoc}</Text>
-                        </View>
-
-                        <View style={styles.Item}>
-                            <TouchableOpacity style={[styles.detalles, ida.RolCve != 'CAZ' ? null : styles['detalles-caz']]} onPress={() => openModal(template2, ida)}>
-                                <Text>Detalles</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.Item}>
-                            {viaje.optMenuMob === 'V' && (
-                                <>
-                                    {precioCoincide(ida.TotalSinDescuento, ida.TotalConDescuento) === false && (
-                                        <Text style={styles.precioReg}>{formatearDinero(ida.TotalSinDescuento)} {ida.Moneda}</Text>
-                                    )}
-                                    <Text style={ida.RolCve != 'CAZ' ? styles.precio : styles['precio-caz']}>{formatearDinero(ida.TotalConDescuento)} {ida.Moneda}</Text>
-                                </>
-                            )}
-                        </View>
-
-                        <View style={styles.Item}>
-                            <TouchableOpacity style={[styles.btnCircle]} onPress={() => validaSiguiente(ida)}>
-                                <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/flecha-derecha.png' }} style={{ width: '100%', height: '100%' }} />
-                            </TouchableOpacity>
-                        </View>
+            <ScrollView style={styles.container}>
+                <ResumenSup pasoSeleccionado={1} />
+                {idas.length === 0 && (
+                    <View>
+                        <Text style={styles.sinResultados}>Sin Resultados</Text>
                     </View>
+                )}
 
-                    {ida.Conexion && <Text style={styles['conexion-text']}>Conexión en {ida.ConexionCiudad} con espera de {convertirAHorasMinutos(ida)}</Text>}
+                {idas.map((ida, index) => (
+                    <View style={[styles.salidas2]} key={ida.NumCrr}>
 
-                    {ida.TxtMsj != 'Operacion Exitosa' && ida.TxtMsj && (
-                        <View style={styles['text-center']}>
-                            <Text style={styles.titlePasos}>{ida.TxtMsj}</Text>
+                        <View style={[styles.seccionB, { fontFamily: 'Termina-Regular' }]}>
+                            {/* CAMION */}
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                                <Text style={{ fontWeight: '700', color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }}>{ida.servicio}</Text>
+                                <View style={[styles.circle]}>
+                                    <Image source={ida.servicio === 'PLATINUM' || ida.servicio === 'PLATINUM ' ? require("../assets/iconos/IconosServicios/PLATINUM.png") :
+                                        ida.servicio === 'TITANIUM ' || ida.servicio === 'TITANIUM' ? require("../assets/iconos/IconosServicios/TITANIUM.png") :
+                                            ida.RolCve === 'CAZ' && ida.servicio === 'COSTA AZUL' ? require("../assets/images/bus_costa_azul.png") :
+                                                ida.servicio === 'PLATINUM INTERNACIONAL' || ida.servicio === 'PLUS INTERNACIONAL' || ida.servicio === 'PLATINUM INTL. ' || ida.servicio === 'PLUS INTL. ' ? require("../assets/iconos/IconosServicios/INTERNACIONAL.png") :
+                                                    ida.servicio === 'SPRINTER' ? require("../assets/images/bus_costa_azul.png") :
+                                                        ida.servicio === 'PLUS' || ida.servicio === 'MEGAPLUS' ? require("../assets/iconos/IconosServicios/PLUS.png") : ''
+                                    } style={[styles.circle]}>
+                                    </Image>
+                                </View>
+                                <Text style={[styles.infoBoleto3, { color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }]}>{ida.DoubleDeck && 'DOBLE PISO'}</Text>
+                            </View>
+
+                            <View style={styles.Item}>
+                                <Text style={styles.infoBoleto}>{viaje.diaIda} {viaje.mesNombreIda}</Text>
+                                <Text style={styles.hora}>{getTimeInOrder(ida.HorSal)}</Text>
+                            </View>
+
+                            <View style={[styles.Item, ida.RolCve != 'CAZ' ? styles.line : styles['line-caz']]}>
+                                {ida.PrcMsc > 0 && <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/petIcon.png' }} style={styles.iconoPett} />}
+                                {ida.Conexion && <View style={styles.conexion}><text>1</text></View>}
+                            </View>
+
+                            <View style={styles.Item}>
+                                <Text style={styles.infoBoleto}>{ida.diaLlegada} {ida.mesNombreLlegada}</Text>
+                                <Text style={styles.hora}>{getTimeInOrder(ida.HorLlg)}</Text>
+                            </View>
+
+                            <View style={styles.Item}>
+                                <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/reloj.png' }} style={styles.ico} />{calcularDiferenciaHoras2(viaje.fchida, ida.HorSal, ida.FchLlg, ida.HorLlg)}</Text>
+                            </View>
+
+                            <View style={styles.Item}>
+                                <Text style={[ida.RolCve != 'CAZ' ? styles.infoBoleto : styles['infoBoleto2']]}>Escalas: {ida.DirEsc}</Text>
+                            </View>
+
+                            <View style={styles.Item}>
+                                <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/autobusgris0.png' }} style={styles.ico} />{ida.PsoLoc}</Text>
+                            </View>
+
+                            <View style={styles.Item}>
+                                <TouchableOpacity style={[styles.detalles, ida.RolCve != 'CAZ' ? null : styles['detalles-caz']]} onPress={() => openModal(template2, ida)}>
+                                    <Text>Detalles</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <View style={styles.Item}>
+                                {viaje.optMenuMob === 'V' && (
+                                    <>
+                                        {precioCoincide(ida.TotalSinDescuento, ida.TotalConDescuento) === false && (
+                                            <Text style={styles.precioReg}>{formatearDinero(ida.TotalSinDescuento)} {ida.Moneda}</Text>
+                                        )}
+                                        <Text style={ida.RolCve != 'CAZ' ? styles.precio : styles['precio-caz']}>{formatearDinero(ida.TotalConDescuento)} {ida.Moneda}</Text>
+                                    </>
+                                )}
+                            </View>
+
+                            <View style={styles.Item}>
+                                <TouchableOpacity style={[styles.btnCircle]} onPress={() => validaSiguiente(ida)}>
+                                    <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/flecha-derecha.png' }} style={{ width: '100%', height: '100%' }} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    )}
-                </View>
-            ))}
-        </ScrollView>
+
+                        {ida.Conexion && <Text style={styles['conexion-text']}>Conexión en {ida.ConexionCiudad} con espera de {convertirAHorasMinutos(ida)}</Text>}
+
+                        {ida.TxtMsj != 'Operacion Exitosa' && ida.TxtMsj && (
+                            <View style={styles['text-center']}>
+                                <Text style={styles.titlePasos}>{ida.TxtMsj}</Text>
+                            </View>
+                        )}
+                    </View>
+                ))}
+            </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        width: '60%',
+        width: '100%',
         margin: 'auto',
-        fontFamily: 'Termina-Regular'
+        fontFamily: 'Termina-Regular',
+        backgroundColor: 'white'
     },
     sinResultados: {
         textAlign: 'center',
@@ -293,7 +295,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignSelf: 'center',
     },
-    circle:{
+    circle: {
         height: '50px',
         width: '50px',
         display: 'block',

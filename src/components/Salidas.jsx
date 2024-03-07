@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Image, TouchableOpacity, useWindowDimensions } from 'react-native';
 import SalidaService from '../services/SalidasService'
 import { useFonts } from 'expo-font';
 import ResumenSup from './Resumen-Superior'
+
 const Salidas = () => {
     const [fontsLoaded] = useFonts({
         'Termina-Regular': require('../assets/fonts/Termina-Regular.otf'),
@@ -10,6 +11,8 @@ const Salidas = () => {
         'Termina-Bold': require('../assets/fonts/Termina-Bold.otf'),
         'Neue-Unica': require('../assets/fonts/NeueHaasUnicaW1G-Regular.otf')
     });
+
+    const { height, width, scale, fontScale } = useWindowDimensions();
 
     const [idas, setIdas] = useState([]);
 
@@ -113,76 +116,77 @@ const Salidas = () => {
                 </View>
             )}
 
-            {idas.map((ida, index) => (
-                <View style={[styles.salidas2]} key={ida.NumCrr}>
+            <View style={[styles.wrapper, width >= 768 ? { width: '70%' } : { width: '100%' }]}>
+                {idas.map((ida, index) => (
+                    <View style={[styles.salidas2]} key={ida.NumCrr}>
 
-                    <View style={[styles.seccionB, { fontFamily: 'Termina-Regular' }]}>
-                        {/* CAMION */}
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto', gridRow: '1/3' }]}>
-                            <Text style={{ fontWeight: '700', color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }}>{ida.servicio}</Text>
-                            <View style={[styles.circle]}>
-                                <Image source={ida.servicio === 'PLATINUM' || ida.servicio === 'PLATINUM ' ? require("../assets/iconos/IconosServicios/PLATINUM.png") :
-                                    ida.servicio === 'TITANIUM ' || ida.servicio === 'TITANIUM' ? require("../assets/iconos/IconosServicios/TITANIUM.png") :
-                                        ida.RolCve === 'CAZ' && ida.servicio === 'COSTA AZUL' ? require("../assets/images/bus_costa_azul.png") :
-                                            ida.servicio === 'PLATINUM INTERNACIONAL' || ida.servicio === 'PLUS INTERNACIONAL' || ida.servicio === 'PLATINUM INTL. ' || ida.servicio === 'PLUS INTL. ' ? require("../assets/iconos/IconosServicios/INTERNACIONAL.png") :
-                                                ida.servicio === 'SPRINTER' ? require("../assets/images/bus_costa_azul.png") :
-                                                    ida.servicio === 'PLUS' || ida.servicio === 'MEGAPLUS' ? require("../assets/iconos/IconosServicios/PLUS.png") : ''
-                                } style={[styles.circle]}>
-                                </Image>
+                        <View style={[width >= 768 ? styles.seccionBLandscape : styles.seccionB, { fontFamily: 'Termina-Regular' }]}>
+                            {/* CAMION */}
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto', gridRow: '1/3' }]}>
+                                <Text style={{ fontWeight: '700', color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }}>{ida.servicio}</Text>
+                                <View style={[styles.circle]}>
+                                    <Image source={ida.servicio === 'PLATINUM' || ida.servicio === 'PLATINUM ' ? require("../assets/iconos/IconosServicios/PLATINUM.png") :
+                                        ida.servicio === 'TITANIUM ' || ida.servicio === 'TITANIUM' ? require("../assets/iconos/IconosServicios/TITANIUM.png") :
+                                            ida.RolCve === 'CAZ' && ida.servicio === 'COSTA AZUL' ? require("../assets/images/bus_costa_azul.png") :
+                                                ida.servicio === 'PLATINUM INTERNACIONAL' || ida.servicio === 'PLUS INTERNACIONAL' || ida.servicio === 'PLATINUM INTL. ' || ida.servicio === 'PLUS INTL. ' ? require("../assets/iconos/IconosServicios/INTERNACIONAL.png") :
+                                                    ida.servicio === 'SPRINTER' ? require("../assets/images/bus_costa_azul.png") :
+                                                        ida.servicio === 'PLUS' || ida.servicio === 'MEGAPLUS' ? require("../assets/iconos/IconosServicios/PLUS.png") : ''
+                                    } style={[styles.circle]}>
+                                    </Image>
+                                </View>
+                                <Text style={[styles.infoBoleto3, { color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }]}>{ida.DoubleDeck && 'DOBLE PISO'}</Text>
                             </View>
-                            <Text style={[styles.infoBoleto3, { color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }]}>{ida.DoubleDeck && 'DOBLE PISO'}</Text>
-                        </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <Text style={styles.infoBoleto}>28 Mar</Text>
-                            <Text style={[{ fontWeight: '700', fontFamily: 'Neue-Unica', fontSize: '1.1rem' }]}>12:50 AM</Text>
-                            {/* <Text style={{  fontFamily: 'Termina-Regular' }}>3 hrs. 40 mins.</Text> */}
-                        </View>
-
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto', width: 100 }]}>
-                            <View style={[styles.line]}>
-                                <View style={[styles.dot1]}></View>
-                                <View style={[styles.dot2]}></View>
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                                <Text style={styles.infoBoleto}>28 Mar</Text>
+                                <Text style={[width >= 1024 ? { fontSize: '1.7rem' } : width <= 425 ? { fontSize: '1.1rem' } : { fontSize: '1.5rem' }, styles.hora]}>12:50 AM</Text>
+                                {/* <Text style={{  fontFamily: 'Termina-Regular' }}>3 hrs. 40 mins.</Text> */}
                             </View>
-                            {/* <Text style={[{ fontFamily: 'Termina-Regular' }]}>Escalas 2</Text> */}
-                        </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <Text style={styles.infoBoleto}>28 Mar</Text>
-                            <Text style={[{ fontWeight: '700', fontFamily: 'Neue-Unica', fontSize: '1.1rem' }]}>4:30 AM</Text>
-                            {/* <Text style={{  fontFamily: 'Termina-Regular' }}>De Paso</Text> */}
-                        </View>
+                            <View style={[styles.Item, width >= 768 ? { gridColumn: '3 / 5' } : {}, { display: 'flex', margin: 'auto', width: 100 }]}>
+                                <View style={[styles.line]}>
+                                    <View style={[styles.dot1]}></View>
+                                    <View style={[styles.dot2]}></View>
+                                </View>
+                                {/* <Text style={[{ fontFamily: 'Termina-Regular' }]}>Escalas 2</Text> */}
+                            </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/reloj.png' }} style={styles.ico}></Image>3 hrs. 40 mins.</Text>
-                        </View>
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                                <Text style={styles.infoBoleto}>28 Mar</Text> 
+                                <Text style={[width >= 1024 ? { fontSize: '1.7rem' } : width <= 425 ? { fontSize: '1.1rem' } : { fontSize: '1.5rem' }, styles.hora]}>4:30 AM</Text>
+                                {/* <Text style={{  fontFamily: 'Termina-Regular' }}>De Paso</Text> */}
+                            </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <Text style={styles.infoBoleto}>Escalas 2</Text>
-                        </View>
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                                <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/reloj.png' }} style={styles.ico}></Image>3 hrs. 40 mins.</Text>
+                            </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/autobusgris0.png' }} style={styles.ico}></Image>De Paso</Text>
-                        </View>
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                                <Text style={styles.infoBoleto}>Escalas 2</Text>
+                            </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <TouchableOpacity style={[styles.detalles, ida.RolCve != 'CAZ' ? null : styles['detalles-caz']]} onPress={() => openModal(template2, ida)}>
-                                <Text style={styles.detalles}>Detalles</Text>
-                            </TouchableOpacity>
-                        </View>
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                                <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/autobusgris0.png' }} style={styles.ico}></Image>De Paso</Text>
+                            </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto', gridColumn: '2/4' }]}>
-                            <Text style={[styles.infoBoleto3, { color: '#F05A28', fontFamily: 'Neue-Unica', fontSize: 20 }]}>$300 MXN</Text>
-                        </View>
-
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <View style={styles.Item}>
-                                <TouchableOpacity style={[styles.btnCircle]} onPress={() => validaSiguiente(ida)}>
-                                    <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/flecha-derecha.png' }} style={{ width: 24, height: 24 }} />
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                                <TouchableOpacity style={[styles.detalles, ida.RolCve != 'CAZ' ? null : styles['detalles-caz']]} onPress={() => openModal(template2, ida)}>
+                                    <Text style={styles.detalles}>Detalles</Text>
                                 </TouchableOpacity>
                             </View>
-                        </View>
-                        {/* <View style={styles.Item}>
+
+                            <View style={[styles.Item, width >= 768 ? { gridRow: 1, gridColumn: 6 } : { gridColumn: '2 / 4' }, { display: 'flex', margin: 'auto' }]}>
+                                <Text style={[styles.infoBoleto3, { color: '#F05A28', fontFamily: 'Neue-Unica', fontSize: 20 }]}>$300 MXN</Text>
+                            </View>
+
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                                <View style={styles.Item}>
+                                    <TouchableOpacity style={[styles.btnCircle]} onPress={() => validaSiguiente(ida)}>
+                                        <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/flecha-derecha.png' }} style={{ width: 24, height: 24 }} />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            {/* <View style={styles.Item}>
                                 <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/reloj.png' }} style={styles.ico} />{calcularDiferenciaHoras2(viaje.fchida, ida.HorSal, ida.FchLlg, ida.HorLlg)}</Text>
                             </View>
 
@@ -200,17 +204,18 @@ const Salidas = () => {
                                 </TouchableOpacity>
                             </View> */}
 
-                    </View>
-
-                    {ida.Conexion && <Text style={styles['conexion-text']}>Conexión en {ida.ConexionCiudad} con espera de {convertirAHorasMinutos(ida)}</Text>}
-
-                    {ida.TxtMsj != 'Operacion Exitosa' && ida.TxtMsj && (
-                        <View style={styles['text-center']}>
-                            <Text style={styles.titlePasos}>{ida.TxtMsj}</Text>
                         </View>
-                    )}
-                </View>
-            ))}
+
+                        {ida.Conexion && <Text style={styles['conexion-text']}>Conexión en {ida.ConexionCiudad} con espera de {convertirAHorasMinutos(ida)}</Text>}
+
+                        {ida.TxtMsj != 'Operacion Exitosa' && ida.TxtMsj && (
+                            <View style={styles['text-center']}>
+                                <Text style={styles.titlePasos}>{ida.TxtMsj}</Text>
+                            </View>
+                        )}
+                    </View>
+                ))}
+            </View>
         </ScrollView>
     );
 }
@@ -221,6 +226,9 @@ const styles = StyleSheet.create({
         margin: 'auto',
         fontFamily: 'Termina-Regular',
         backgroundColor: 'white'
+    },
+    wrapper: {
+        margin: 'auto'
     },
     sinResultados: {
         textAlign: 'center',
@@ -306,7 +314,13 @@ const styles = StyleSheet.create({
     seccionB: {
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: '1fr 0.6fr',
+        gridTemplateRows: '1fr 0.55fr .8fr',
+        fontFamily: 'Termina-Regular'
+    },
+    seccionBLandscape: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(6, 1fr)',
+        gridTemplateRows: '1fr 0.75fr',
         gridGap: 5,
         fontFamily: 'Termina-Regular'
     },
@@ -364,6 +378,14 @@ const styles = StyleSheet.create({
         borderRadius: '50%',
         position: 'absolute',
         top: -4,
+    },
+    hora:{
+        textAlign: 'center',
+        lineHeight: '1.3',
+        display: 'block',
+        fontFamily: 'Neue-Unica',
+        fontWeight: 'bold',
+        marginBottom: 0
     }
 });
 

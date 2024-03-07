@@ -118,7 +118,7 @@ const Salidas = () => {
 
                         <View style={[styles.seccionB, { fontFamily: 'Termina-Regular' }]}>
                             {/* CAMION */}
-                            <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                            <View style={[styles.Item, { display: 'flex', margin: 'auto', gridRow: '1/3' }]}>
                                 <Text style={{ fontWeight: '700', color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }}>{ida.servicio}</Text>
                                 <View style={[styles.circle]}>
                                     <Image source={ida.servicio === 'PLATINUM' || ida.servicio === 'PLATINUM ' ? require("../assets/iconos/IconosServicios/PLATINUM.png") :
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     hora: {
         fontFamily: 'Neue-Unica',
         fontWeight: 'bold',
-        fontSize: 28,
+        fontSize: '1.5rem',
         marginBottom: 0,
     },
     infoBoleto: {
@@ -303,6 +303,16 @@ const styles = StyleSheet.create({
         marginBottom: '10px',
         backgroundSize: 'cover',
         margin: 'auto',
+    },
+    line: {
+        display: 'inline-block',
+        borderTop: '2px solid #f05a28',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        margin: '25px 0 0',
+        width: '100%',
+        position: 'relative',
+        verticalAlign: 'top'
     }
 });
 

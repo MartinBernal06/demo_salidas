@@ -17,20 +17,20 @@ function ButtonNav() {
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={() => handleNavigate("Comprar Boletos")} style={styles.button}>
-          <MaterialCommunityIcons name="ticket-confirmation-outline" color={selectedTab === "Comprar Boletos" ? "#F05A28" : "#848484"} size={30} />
-          <Text style={[styles.label, { color: selectedTab === "Comprar Boletos" ? "#F05A28" : "#848484" }]}>Comprar</Text>
+          <MaterialCommunityIcons name="ticket-confirmation-outline" color={selectedTab === "Comprar Boletos" ? "#F05A28" : "#808082"} size={30} />
+          <Text style={[styles.label, { color: selectedTab === "Comprar Boletos" ? "#F05A28" : "#808082" }]}>Comprar</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigate("Horarios")} style={styles.button}>
-          <MaterialCommunityIcons name="calendar" color={selectedTab === "Horarios" ? "#F05A28" : "#848484"} size={30} />
-          <Text style={[styles.label, { color: selectedTab === "Horarios" ? "#F05A28" : "#848484" }]}>Horarios</Text>
+          <MaterialCommunityIcons name="calendar" color={selectedTab === "Horarios" ? "#F05A28" : "#808082"} size={30} />
+          <Text style={[styles.label, { color: selectedTab === "Horarios" ? "#F05A28" : "#808082" }]}>Horarios</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigate("Mis Viajes")} style={styles.button}>
-          <MaterialCommunityIcons name="bag-checked" color={selectedTab === "Mis Viajes" ? "#F05A28" : "#848484"} size={30} />
-          <Text style={[styles.label, { color: selectedTab === "Mis Viajes" ? "#F05A28" : "#848484" }]}>Mis Viajes</Text>
+          <MaterialCommunityIcons name="bag-checked" color={selectedTab === "Mis Viajes" ? "#F05A28" : "#808082"} size={30} />
+          <Text style={[styles.label, { color: selectedTab === "Mis Viajes" ? "#F05A28" : "#808082" }]}>Mis Viajes</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleNavigate("Mi Cuenta")} style={styles.button}>
-          <MaterialCommunityIcons name="account" color={selectedTab === "Mi Cuenta" ? "#F05A28" : "#848484"} size={30} />
-          <Text style={[styles.label, { color: selectedTab === "Mi Cuenta" ? "#F05A28" : "#848484" }]}>Cuenta</Text>
+          <MaterialCommunityIcons name="account" color={selectedTab === "Mi Cuenta" ? "#F05A28" : "#808082"} size={30} />
+          <Text style={[styles.label, { color: selectedTab === "Mi Cuenta" ? "#F05A28" : "#808082" }]}>Cuenta</Text>
         </TouchableOpacity>
       </View>
     </View>

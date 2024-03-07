@@ -134,41 +134,49 @@ const Salidas = () => {
                         </View>
 
                         <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <Text style={{  fontFamily: 'Termina-Regular' }}>28 Mar</Text>
-                            <Text style={[{fontWeight: '700', fontFamily: 'Termina-Regular'}]}>12:50 AM</Text>
-                            <Text style={{  fontFamily: 'Termina-Regular' }}>3 hrs. 40 mins.</Text>
+                            <Text style={styles.infoBoleto}>28 Mar</Text>
+                            <Text style={[{ fontWeight: '700', fontFamily: 'Neue-Unica', fontSize: '1.1rem' }]}>12:50 AM</Text>
+                            {/* <Text style={{  fontFamily: 'Termina-Regular' }}>3 hrs. 40 mins.</Text> */}
                         </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                        <View style={[styles.Item, { display: 'flex', margin: 'auto', width: 100 }]}>
                             <View style={[styles.line]}>
                             </View>
-                            <Text style={[{ fontFamily: 'Termina-Regular' }]}>Escalas 2</Text>
+                            {/* <Text style={[{ fontFamily: 'Termina-Regular' }]}>Escalas 2</Text> */}
                         </View>
 
                         <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                            <Text style={{  fontFamily: 'Termina-Regular' }}>28 Mar</Text>
-                            <Text style={[{fontWeight: '700', fontFamily: 'Termina-Regular'}]}>4:30 AM</Text>
-                            <Text style={{  fontFamily: 'Termina-Regular' }}>De Paso</Text>
+                            <Text style={styles.infoBoleto}>28 Mar</Text>
+                            <Text style={[{ fontWeight: '700', fontFamily: 'Neue-Unica', fontSize: '1.1rem' }]}>4:30 AM</Text>
+                            {/* <Text style={{  fontFamily: 'Termina-Regular' }}>De Paso</Text> */}
+                        </View>
+
+                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                            <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/reloj.png' }} style={styles.ico}></Image>3 hrs. 40 mins.</Text>
+                        </View>
+
+                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                            <Text style={styles.infoBoleto}>Escalas 2</Text>
+                        </View>
+
+                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
+                            <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/autobusgris0.png' }} style={styles.ico}></Image>De Paso</Text>
                         </View>
 
                         <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
                             <TouchableOpacity style={[styles.detalles, ida.RolCve != 'CAZ' ? null : styles['detalles-caz']]} onPress={() => openModal(template2, ida)}>
-                                <Text style={[{ display: 'flex', margin: 'auto', color: '#F05A28', textDecorationLine: 'underline' }]}>Detalles</Text>
+                                <Text style={styles.detalles}>Detalles</Text>
                             </TouchableOpacity>
                         </View>
 
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto', marginLeft: 50 }]}>
-                            <Text style={[styles.infoBoleto3, { color: '#F05A28', fontFamily: 'Termina-Regular', fontSize: 20 }]}>$300</Text>
-                        </View>
-
-                        <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-
+                        <View style={[styles.Item, { display: 'flex', margin: 'auto', gridColumn: '2/4' }]}>
+                            <Text style={[styles.infoBoleto3, { color: '#F05A28', fontFamily: 'Neue-Unica', fontSize: 20 }]}>$300 MXN</Text>
                         </View>
 
                         <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
                             <View style={styles.Item}>
                                 <TouchableOpacity style={[styles.btnCircle]} onPress={() => validaSiguiente(ida)}>
-                                    <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/flecha-derecha.png' }} style={{ width: '100%', height: '100%' }} />
+                                    <Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/flecha-derecha.png' }} style={{ width: 24, height: 24 }} />
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -256,8 +264,10 @@ const styles = StyleSheet.create({
         marginBottom: 0,
     },
     infoBoleto: {
-        fontSize: 12,
+        fontSize: '.75rem',
         margin: 0,
+        fontFamily: 'Termina-Regular',
+        textAlign: 'center'
     },
     infoBoleto3: {
         fontWeight: 'bold',
@@ -289,8 +299,7 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         alignSelf: 'center',
         justifyContent: 'center',
-        alignItems: 'center',
-        padding: '8px',
+        alignItems: 'center'
     },
     seccionB: {
         display: 'grid',
@@ -317,9 +326,23 @@ const styles = StyleSheet.create({
         borderTopColor: '#f05a28',
         paddingTop: 5,
         paddingBottom: 5,
-        marginVertical: 25,
+        marginTop: 25,
         width: '100%',
+        position: 'relative'
     },
+    ico: {
+        width: 10,
+        height: 10,
+        marginHorizontal: 3
+    },
+    detalles: {
+        fontFamily: 'Termina-Regular',
+        cursor: 'pointer',
+        fontSize: '0.75rem',
+        color: '#f05a28',
+        textDecorationLine: 'underline',
+        margin: 0,
+    }
 });
 
 export default Salidas

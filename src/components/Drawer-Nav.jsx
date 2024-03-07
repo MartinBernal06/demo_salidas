@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     },
     icon: {
         margin: 10,
-        paddingBottom: 30
+        paddingBottom: 30,
+        cursor: 'pointer'
     },
     textVersion: {
         color: 'white',

@@ -141,6 +141,8 @@ const Salidas = () => {
 
                         <View style={[styles.Item, { display: 'flex', margin: 'auto', width: 100 }]}>
                             <View style={[styles.line]}>
+                                <View style={[styles.dot1]}></View>
+                                <View style={[styles.dot2]}></View>
                             </View>
                             {/* <Text style={[{ fontFamily: 'Termina-Regular' }]}>Escalas 2</Text> */}
                         </View>
@@ -342,6 +344,26 @@ const styles = StyleSheet.create({
         color: '#f05a28',
         textDecorationLine: 'underline',
         margin: 0,
+    },
+    dot1: {
+        left: 0,
+        content: '',
+        width: 6,
+        height: 6,
+        backgroundColor: '#f05a28',
+        borderRadius: '50%',
+        position: 'absolute',
+        top: -4,
+    },
+    dot2: {
+        right: 0,
+        content: '',
+        width: 6,
+        height: 6,
+        backgroundColor: '#f05a28',
+        borderRadius: '50%',
+        position: 'absolute',
+        top: -4,
     }
 });
 

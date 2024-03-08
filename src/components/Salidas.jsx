@@ -116,12 +116,11 @@ const Salidas = () => {
                 </View>
             )}
 
-            <View style={[styles.wrapper, width >= 768 ? { width: '70%' } : { width: '100%' }]}>
+            <View style={[styles.wrapper, width >= 768 ? { width: '70%' } : { width: '100%', height:'100%' }]}>
                 {idas.map((ida, index) => (
                     <View style={[styles.salidas2]} key={ida.NumCrr}>
 
                         <View style={[width >= 768 ? styles.seccionBLandscape : styles.seccionB, { fontFamily: 'Termina-Regular' }]}>
-                            {/* CAMION */}
                             <View style={[styles.Item, { display: 'flex', margin: 'auto', gridRow: '1/3' }]}>
                                 <Text style={{ fontWeight: '700', color: definirServicio(ida.servicio, ida.RolCve), fontFamily: 'Termina-Regular' }}>{ida.servicio}</Text>
                                 <View style={[styles.circle]}>
@@ -140,7 +139,6 @@ const Salidas = () => {
                             <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
                                 <Text style={styles.infoBoleto}>28 Mar</Text>
                                 <Text style={[width >= 1024 ? { fontSize: '1.7rem' } : width <= 425 ? { fontSize: '1.1rem' } : { fontSize: '1.5rem' }, styles.hora]}>12:50 AM</Text>
-                                {/* <Text style={{  fontFamily: 'Termina-Regular' }}>3 hrs. 40 mins.</Text> */}
                             </View>
 
                             <View style={[styles.Item, width >= 768 ? { gridColumn: '3 / 5' } : {}, { display: 'flex', margin: 'auto', width: 100 }]}>
@@ -148,13 +146,11 @@ const Salidas = () => {
                                     <View style={[styles.dot1]}></View>
                                     <View style={[styles.dot2]}></View>
                                 </View>
-                                {/* <Text style={[{ fontFamily: 'Termina-Regular' }]}>Escalas 2</Text> */}
                             </View>
 
                             <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
-                                <Text style={styles.infoBoleto}>28 Mar</Text> 
+                                <Text style={styles.infoBoleto}>28 Mar</Text>
                                 <Text style={[width >= 1024 ? { fontSize: '1.7rem' } : width <= 425 ? { fontSize: '1.1rem' } : { fontSize: '1.5rem' }, styles.hora]}>4:30 AM</Text>
-                                {/* <Text style={{  fontFamily: 'Termina-Regular' }}>De Paso</Text> */}
                             </View>
 
                             <View style={[styles.Item, { display: 'flex', margin: 'auto' }]}>
@@ -186,33 +182,16 @@ const Salidas = () => {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            {/* <View style={styles.Item}>
-                                <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/reloj.png' }} style={styles.ico} />{calcularDiferenciaHoras2(viaje.fchida, ida.HorSal, ida.FchLlg, ida.HorLlg)}</Text>
-                            </View>
-
-                            <View style={styles.Item}>
-                                <Text style={[ida.RolCve != 'CAZ' ? styles.infoBoleto : styles['infoBoleto2']]}>Escalas: {ida.DirEsc}</Text>
-                            </View>
-
-                            <View style={styles.Item}>
-                                <Text style={styles.infoBoleto}><Image source={{ uri: 'https://store.tufesa.com.mx/v3/assets/iconos/autobusgris0.png' }} style={styles.ico} />{ida.PsoLoc}</Text>
-                            </View>
-
-                            <View style={styles.Item}>
-                                <TouchableOpacity style={[styles.detalles, ida.RolCve != 'CAZ' ? null : styles['detalles-caz']]} onPress={() => openModal(template2, ida)}>
-                                    <Text>Detalles</Text>
-                                </TouchableOpacity>
-                            </View> */}
 
                         </View>
 
-                        {ida.Conexion && <Text style={styles['conexion-text']}>Conexión en {ida.ConexionCiudad} con espera de {convertirAHorasMinutos(ida)}</Text>}
+                        {/* {ida.Conexion && <Text style={styles['conexion-text']}>Conexión en {ida.ConexionCiudad} con espera de {convertirAHorasMinutos(ida)}</Text>}
 
                         {ida.TxtMsj != 'Operacion Exitosa' && ida.TxtMsj && (
                             <View style={styles['text-center']}>
                                 <Text style={styles.titlePasos}>{ida.TxtMsj}</Text>
                             </View>
-                        )}
+                        )} */}
                     </View>
                 ))}
             </View>
@@ -379,7 +358,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: -4,
     },
-    hora:{
+    hora: {
         textAlign: 'center',
         lineHeight: '1.3',
         display: 'block',

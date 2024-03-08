@@ -28,7 +28,6 @@ const CustomDrawerHeader = (props) => {
                     <MaterialCommunityIcons name="bell-badge-outline" color="#F05A28" size={30} />
                 </TouchableOpacity>
             </View>
-            {/* Aquí puedes agregar el contenido adicional del cajón si es necesario */}
         </DrawerContentScrollView>
     );
 };
